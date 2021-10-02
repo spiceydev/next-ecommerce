@@ -14,8 +14,9 @@ import { useRouter } from 'next/router';
 import React, { useContext } from 'react';
 import Layout from '../../components/Layout';
 import Product from '../../models/Product';
+import { CART_ADD_ITEM } from '../../utils/actionTypes';
 import db from '../../utils/db';
-import { CART_ADD_ITEM, Store } from '../../utils/Store';
+import { Store } from '../../utils/Store';
 import useStyles from '../../utils/styles';
 
 export default function ProductScreen({ product }) {

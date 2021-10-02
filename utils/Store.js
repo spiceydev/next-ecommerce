@@ -1,12 +1,13 @@
 import Cookies from 'js-cookie';
 import { createContext, useReducer } from 'react';
-
-export const DARK_MODE_ON = 'DARK_MODE_ON';
-export const DARK_MODE_OFF = 'DARK_MODE_OFF';
-export const CART_ADD_ITEM = 'CART_ADD_ITEM';
-export const CART_REMOVE_ITEM = 'CART_REMOVE_ITEM';
-export const USER_LOGIN = 'USER_LOGIN';
-export const USER_LOGOUT = 'USER_LOGOUT';
+import {
+  CART_ADD_ITEM,
+  CART_REMOVE_ITEM,
+  DARK_MODE_OFF,
+  DARK_MODE_ON,
+  USER_LOGIN,
+  USER_LOGOUT,
+} from './actionTypes';
 
 export const Store = createContext();
 const initialState = {

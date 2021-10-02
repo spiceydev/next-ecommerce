@@ -18,12 +18,8 @@ import Head from 'next/head';
 import NextLink from 'next/link';
 import { useRouter } from 'next/router';
 import React, { useContext, useState } from 'react';
-import {
-  DARK_MODE_OFF,
-  DARK_MODE_ON,
-  Store,
-  USER_LOGOUT,
-} from '../utils/Store';
+import { DARK_MODE_OFF, DARK_MODE_ON, USER_LOGOUT } from '../utils/actionTypes';
+import { Store } from '../utils/Store';
 import useStyles from '../utils/styles';
 
 export default function Layout({ title, children, description }) {

@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import dynamic from 'next/dynamic';
 import Layout from '../components/Layout';
-import { CART_ADD_ITEM, CART_REMOVE_ITEM, Store } from '../utils/Store';
+import { Store } from '../utils/Store';
 import NextLink from 'next/link';
 import Image from 'next/image';
 import {
@@ -23,6 +23,7 @@ import {
 } from '@material-ui/core';
 import axios from 'axios';
 import { useRouter } from 'next/router';
+import { CART_ADD_ITEM, CART_REMOVE_ITEM } from '../utils/actionTypes';
 
 function CartScreen() {
   const router = useRouter();
