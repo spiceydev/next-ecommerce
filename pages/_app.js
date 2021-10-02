@@ -1,3 +1,4 @@
+import { SnackbarProvider } from 'notistack';
 import { useEffect } from 'react';
 import '../styles/globals.css';
 import { StoreProvider } from '../utils/Store';
@@ -8,9 +9,11 @@ function MyApp({ Component, pageProps }) {
     if (jssStyles) jssStyles.parentElement.removeChild(jssStyles);
   }, []);
   return (
-    <StoreProvider>
-      <Component {...pageProps} />
-    </StoreProvider>
+    <SnackbarProvider anchorOrigin={{ vertical: 'top', horizontal: 'center' }}>
+      <StoreProvider>
+        <Component {...pageProps} />
+      </StoreProvider>
+    </SnackbarProvider>
   );
 }
 
