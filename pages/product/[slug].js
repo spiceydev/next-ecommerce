@@ -16,6 +16,7 @@ import Layout from '../../components/Layout';
 import Product from '../../models/Product';
 import { CART_ADD_ITEM } from '../../utils/actionTypes';
 import db from '../../utils/db';
+import { makeCurrency } from '../../utils/makeCurrency';
 import { Store } from '../../utils/Store';
 import useStyles from '../../utils/styles';
 
@@ -89,7 +90,7 @@ export default function ProductScreen({ product }) {
                     <Typography>Price</Typography>
                   </Grid>
                   <Grid item xs={6}>
-                    ${product.price}
+                    {makeCurrency(product.price)}
                   </Grid>
                 </Grid>
               </ListItem>

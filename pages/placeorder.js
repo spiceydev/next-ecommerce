@@ -1,6 +1,7 @@
 import {
   Button,
   Card,
+  CircularProgress,
   Grid,
   Link,
   List,
@@ -13,21 +14,30 @@ import {
   TableRow,
   Typography,
 } from '@material-ui/core';
+import axios from 'axios';
+import Cookies from 'js-cookie';
 import dynamic from 'next/dynamic';
 import Image from 'next/image';
 import NextLink from 'next/link';
 import { useRouter } from 'next/router';
-import React, { useContext, useEffect } from 'react';
+import { useSnackbar } from 'notistack';
+import React, { useContext, useEffect, useState } from 'react';
 import CheckoutWizard from '../components/CheckoutWizard';
 import Layout from '../components/Layout';
+import { CART_CLEAR } from '../utils/actionTypes';
+import { getError } from '../utils/error';
+import { makeCurrency } from '../utils/makeCurrency';
 import { Store } from '../utils/Store';
 import useStyles from '../utils/styles';
 
 function PlaceOrder() {
   const router = useRouter();
   const classes = useStyles();
+  const { closeSnackbar, enqueueSnackbar } = useSnackbar();
   const { state, dispatch } = useContext(Store);
+  const [loading, setLoading] = useState(false);
   const {
+    userInfo,
     cart: { cartItems, shippingAddress, paymentMethod },
   } = state;
 
@@ -43,8 +53,42 @@ function PlaceOrder() {
     if (!paymentMethod) {
       router.push('/payment');
     }
+    if (cartItems.length === 0) {
+      router.push('/cart');
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  const placeOrderHandler = async () => {
+    closeSnackbar();
+    try {
+      setLoading(true);
+      const { data } = await axios.post(
+        '/api/orders',
+        {
+          orderItems: cartItems,
+          shippingAddress,
+          paymentMethod,
+          itemsPrice,
+          shippingPrice,
+          taxPrice,
+          totalPrice,
+        },
+        {
+          headers: {
+            authorization: `Bearer ${userInfo.token}`,
+          },
+        }
+      );
+      dispatch({ type: CART_CLEAR });
+      Cookies.remove('cartItems');
+      setLoading(false);
+      router.push(`/order/${data._id}`);
+    } catch (error) {
+      enqueueSnackbar(getError(error), { variant: 'error' });
+      setLoading(false);
+    }
+  };
 
   return (
     <Layout title="Shopping Cart">
@@ -125,7 +169,7 @@ function PlaceOrder() {
                             <Typography>{item.quantity}</Typography>
                           </TableCell>
                           <TableCell align="right">
-                            <Typography>${item.price}</Typography>
+                            <Typography>{makeCurrency(item.price)}</Typography>
                           </TableCell>
                         </TableRow>
                       ))}
@@ -148,12 +192,7 @@ function PlaceOrder() {
                     <Typography>Items: </Typography>
                   </Grid>
                   <Grid item xs={6}>
-                    <Typography>
-                      {new Intl.NumberFormat('en-NZ', {
-                        style: 'currency',
-                        currency: 'NZD',
-                      }).format(itemsPrice)}
-                    </Typography>
+                    <Typography>{makeCurrency(itemsPrice)}</Typography>
                   </Grid>
                 </Grid>
               </ListItem>
@@ -163,12 +202,7 @@ function PlaceOrder() {
                     <Typography>Tax: </Typography>
                   </Grid>
                   <Grid item xs={6}>
-                    <Typography>
-                      {new Intl.NumberFormat('en-NZ', {
-                        style: 'currency',
-                        currency: 'NZD',
-                      }).format(taxPrice)}
-                    </Typography>
+                    <Typography>{makeCurrency(taxPrice)}</Typography>
                   </Grid>
                 </Grid>
               </ListItem>
@@ -178,12 +212,7 @@ function PlaceOrder() {
                     <Typography>Shipping: </Typography>
                   </Grid>
                   <Grid item xs={6}>
-                    <Typography>
-                      {new Intl.NumberFormat('en-NZ', {
-                        style: 'currency',
-                        currency: 'NZD',
-                      }).format(shippingPrice)}
-                    </Typography>
+                    <Typography>{makeCurrency(shippingPrice)}</Typography>
                   </Grid>
                 </Grid>
               </ListItem>
@@ -207,8 +236,19 @@ function PlaceOrder() {
                 </Grid>
               </ListItem>
               <ListItem>
-                <Button variant="contained" color="primary" fullWidth>
-                  Place Order
+                <Button
+                  variant="contained"
+                  color="primary"
+                  fullWidth
+                  onClick={placeOrderHandler}
+                  disabled={loading}
+                >
+                  Place Order{' '}
+                  {loading && (
+                    <ListItem>
+                      <CircularProgress />
+                    </ListItem>
+                  )}
                 </Button>
               </ListItem>
             </List>

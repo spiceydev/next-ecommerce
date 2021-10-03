@@ -24,6 +24,7 @@ import {
 import axios from 'axios';
 import { useRouter } from 'next/router';
 import { CART_ADD_ITEM, CART_REMOVE_ITEM } from '../utils/actionTypes';
+import { makeCurrency } from '../utils/makeCurrency';
 
 function CartScreen() {
   const router = useRouter();
@@ -112,7 +113,9 @@ function CartScreen() {
                           ))}
                         </Select>
                       </TableCell>
-                      <TableCell align="right">${item.price}</TableCell>
+                      <TableCell align="right">
+                        {makeCurrency(item.price)}
+                      </TableCell>
                       <TableCell align="right">
                         <Button
                           variant="contained"
@@ -134,8 +137,10 @@ function CartScreen() {
                 <ListItem>
                   <Typography variant="h2">
                     Subtotal ({cartItems.reduce((a, c) => a + c.quantity, 0)}{' '}
-                    items) : $
-                    {cartItems.reduce((a, c) => a + c.quantity * c.price, 0)}
+                    items) :{' '}
+                    {makeCurrency(
+                      cartItems.reduce((a, c) => a + c.quantity * c.price, 0)
+                    )}
                   </Typography>
                 </ListItem>
                 <ListItem>

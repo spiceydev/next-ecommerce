@@ -16,6 +16,7 @@ import Layout from '../components/Layout';
 import Product from '../models/Product';
 import { CART_ADD_ITEM } from '../utils/actionTypes';
 import db from '../utils/db';
+import { makeCurrency } from '../utils/makeCurrency';
 import { Store } from '../utils/Store';
 
 export default function Home({ products }) {
@@ -55,7 +56,7 @@ export default function Home({ products }) {
                   </CardActionArea>
                 </NextLink>
                 <CardActions>
-                  <Typography>${product.price}</Typography>
+                  <Typography>{makeCurrency(product.price)}</Typography>
                   <Button
                     size="small"
                     color="primary"
