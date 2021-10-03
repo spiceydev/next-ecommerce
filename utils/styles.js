@@ -88,7 +88,6 @@ const useStyles = makeStyles((theme) => ({
   sort: {
     marginRight: 5,
   },
-
   fullContainer: { height: '100vh' },
   mapInputBox: {
     position: 'absolute',

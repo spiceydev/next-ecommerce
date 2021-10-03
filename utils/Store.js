@@ -2,6 +2,7 @@ import Cookies from 'js-cookie';
 import { createContext, useReducer } from 'react';
 import {
   CART_ADD_ITEM,
+  CART_CLEAR,
   CART_REMOVE_ITEM,
   DARK_MODE_OFF,
   DARK_MODE_ON,
@@ -60,6 +61,9 @@ function reducer(state, action) {
       return { ...state, cart: { ...state.cart, cartItems } };
     }
 
+    case CART_CLEAR:
+      return { ...state, cart: { ...state.cart, cartItems: [] } };
+
     case SAVE_SHIPPING_ADDRESS:
       return {
         ...state,
@@ -76,7 +80,11 @@ function reducer(state, action) {
       return { ...state, userInfo: action.payload };
 
     case USER_LOGOUT:
-      return { ...state, userInfo: null, cart: { cartItems: [] } };
+      return {
+        ...state,
+        userInfo: null,
+        cart: { cartItems: [], shippingAddress: {}, paymentMethod: '' },
+      };
 
     default:
       return state;
