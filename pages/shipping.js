@@ -15,7 +15,7 @@ import { SAVE_SHIPPING_ADDRESS } from '../utils/actionTypes';
 import { Store } from '../utils/Store';
 import useStyles from '../utils/styles';
 
-export default function Shipping() {
+const Shipping = () => {
   const {
     handleSubmit,
     control,
@@ -218,4 +218,6 @@ export default function Shipping() {
       </form>
     </Layout>
   );
-}
+};
+
+export default Shipping;

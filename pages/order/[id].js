@@ -56,7 +56,7 @@ function reducer(state, action) {
   }
 }
 
-function Order({ params }) {
+const Order = ({ params }) => {
   const orderId = params.id;
   const [{ isPending }, paypalDispatch] = usePayPalScriptReducer();
   const classes = useStyles();
@@ -337,7 +337,7 @@ function Order({ params }) {
       )}
     </Layout>
   );
-}
+};
 
 export async function getServerSideProps({ params }) {
   return { props: { params } };

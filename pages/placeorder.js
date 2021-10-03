@@ -30,7 +30,7 @@ import { makeCurrency } from '../utils/makeCurrency';
 import { Store } from '../utils/Store';
 import useStyles from '../utils/styles';
 
-function PlaceOrder() {
+const PlaceOrder = () => {
   const router = useRouter();
   const classes = useStyles();
   const { closeSnackbar, enqueueSnackbar } = useSnackbar();
@@ -257,6 +257,6 @@ function PlaceOrder() {
       </Grid>
     </Layout>
   );
-}
+};
 
 export default dynamic(() => Promise.resolve(PlaceOrder), { ssr: false });

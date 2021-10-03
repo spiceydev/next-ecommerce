@@ -20,7 +20,7 @@ import { makeCurrency } from '../../utils/makeCurrency';
 import { Store } from '../../utils/Store';
 import useStyles from '../../utils/styles';
 
-export default function ProductScreen({ product }) {
+const ProductScreen = ({ product }) => {
   const router = useRouter();
   const classes = useStyles();
   const { state, dispatch } = useContext(Store);
@@ -120,7 +120,7 @@ export default function ProductScreen({ product }) {
       </Grid>
     </Layout>
   );
-}
+};
 
 export async function getServerSideProps(context) {
   const { params } = context;
@@ -133,3 +133,5 @@ export async function getServerSideProps(context) {
     props: { product: db.convertDocToObj(product) },
   };
 }
+
+export default ProductScreen;

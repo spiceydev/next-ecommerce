@@ -18,7 +18,7 @@ import { SAVE_PAYMENT_METHOD } from '../utils/actionTypes';
 import { Store } from '../utils/Store';
 import useStyles from '../utils/styles';
 
-export default function Payment() {
+const Payment = () => {
   const router = useRouter();
   const classes = useStyles();
   const { state, dispatch } = useContext(Store);
@@ -102,4 +102,6 @@ export default function Payment() {
       </form>
     </Layout>
   );
-}
+};
+
+export default Payment;

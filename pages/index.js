@@ -19,7 +19,7 @@ import db from '../utils/db';
 import { makeCurrency } from '../utils/makeCurrency';
 import { Store } from '../utils/Store';
 
-export default function Home({ products }) {
+const Home = ({ products }) => {
   const { state, dispatch } = useContext(Store);
   const router = useRouter();
 
@@ -72,7 +72,7 @@ export default function Home({ products }) {
       </div>
     </Layout>
   );
-}
+};
 
 export async function getServerSideProps() {
   await db.connect();
@@ -83,3 +83,5 @@ export async function getServerSideProps() {
     props: { products: products.map(db.convertDocToObj) },
   };
 }
+
+export default Home;

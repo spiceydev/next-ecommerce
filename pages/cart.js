@@ -26,7 +26,7 @@ import { useRouter } from 'next/router';
 import { CART_ADD_ITEM, CART_REMOVE_ITEM } from '../utils/actionTypes';
 import { makeCurrency } from '../utils/makeCurrency';
 
-function CartScreen() {
+const CartScreen = () => {
   const router = useRouter();
   const { state, dispatch } = useContext(Store);
   const {
@@ -160,6 +160,6 @@ function CartScreen() {
       )}
     </Layout>
   );
-}
+};
 
 export default dynamic(() => Promise.resolve(CartScreen), { ssr: false });

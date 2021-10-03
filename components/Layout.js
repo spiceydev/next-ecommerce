@@ -22,7 +22,7 @@ import { DARK_MODE_OFF, DARK_MODE_ON, USER_LOGOUT } from '../utils/actionTypes';
 import { Store } from '../utils/Store';
 import useStyles from '../utils/styles';
 
-export default function Layout({ title, children, description }) {
+const Layout = ({ title, children, description }) => {
   const router = useRouter();
   const { state, dispatch } = useContext(Store);
   const { darkMode, cart, userInfo } = state;
@@ -60,8 +60,12 @@ export default function Layout({ title, children, description }) {
   const loginClickHandler = (e) => {
     setAnchorEl(e.currentTarget);
   };
-  const loginMenuCloseHandler = () => {
+
+  const loginMenuCloseHandler = (e, redirect) => {
     setAnchorEl(null);
+    if (redirect) {
+      router.push(redirect);
+    }
   };
 
   const logoutClickHandler = () => {
@@ -124,9 +128,17 @@ export default function Layout({ title, children, description }) {
                     open={Boolean(anchorEl)}
                     onClose={loginMenuCloseHandler}
                   >
-                    <MenuItem onClick={loginMenuCloseHandler}>Profile</MenuItem>
-                    <MenuItem onClick={loginMenuCloseHandler}>
-                      My Account
+                    <MenuItem
+                      onClick={(e) => loginMenuCloseHandler(e, '/profile')}
+                    >
+                      Profile
+                    </MenuItem>
+                    <MenuItem
+                      onClick={(e) =>
+                        loginMenuCloseHandler(e, '/order-history')
+                      }
+                    >
+                      Order History
                     </MenuItem>
                     <MenuItem onClick={logoutClickHandler}>Logout</MenuItem>
                   </Menu>
@@ -146,4 +158,6 @@ export default function Layout({ title, children, description }) {
       </ThemeProvider>
     </div>
   );
-}
+};
+
+export default Layout;
