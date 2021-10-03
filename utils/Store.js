@@ -5,6 +5,7 @@ import {
   CART_REMOVE_ITEM,
   DARK_MODE_OFF,
   DARK_MODE_ON,
+  SAVE_PAYMENT_METHOD,
   SAVE_SHIPPING_ADDRESS,
   USER_LOGIN,
   USER_LOGOUT,
@@ -20,6 +21,9 @@ const initialState = {
     shippingAddress: Cookies.get('shippingAddress')
       ? JSON.parse(Cookies.get('shippingAddress'))
       : {},
+    paymentMethod: Cookies.get('paymentMethod')
+      ? Cookies.get('paymentMethod')
+      : '',
   },
   userInfo: Cookies.get('userInfo')
     ? JSON.parse(Cookies.get('userInfo'))
@@ -60,6 +64,12 @@ function reducer(state, action) {
       return {
         ...state,
         cart: { ...state.cart, shippingAddress: action.payload },
+      };
+
+    case SAVE_PAYMENT_METHOD:
+      return {
+        ...state,
+        cart: { ...state.cart, paymentMethod: action.payload },
       };
 
     case USER_LOGIN:
