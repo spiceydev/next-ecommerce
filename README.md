@@ -20,29 +20,26 @@
 [![Forks][forks-shield]][forks-url]
 [![Stargazers][stars-shield]][stars-url]
 [![Issues][issues-shield]][issues-url]
-[![MIT License][license-shield]][license-url]
-[![LinkedIn][linkedin-shield]][linkedin-url]
+[![GNU License][license-shield]][license-url]
 
 <!-- PROJECT LOGO -->
 <br />
 <div align="center">
-  <a href="https://github.com/github_username/repo_name">
+  <a href="https://github.com/spiceydev/next-ecommerce">
     <img src="images/logo.png" alt="Logo" width="80" height="80">
   </a>
 
-<h3 align="center">project_title</h3>
+<h3 align="center">Next.js e-commerce template</h3>
 
   <p align="center">
-    project_description
-    <br />
-    <a href="https://github.com/github_username/repo_name"><strong>Explore the docs »</strong></a>
+    A template to use to quickly deploy an e-commerce application
     <br />
     <br />
-    <a href="https://github.com/github_username/repo_name">View Demo</a>
+    <a href="https://vercel.com/spiceydev/next-ecommerce">View Demo</a>
     ·
-    <a href="https://github.com/github_username/repo_name/issues">Report Bug</a>
+    <a href="https://github.com/spiceydev/next-ecommerce/issues">Report Bug</a>
     ·
-    <a href="https://github.com/github_username/repo_name/issues">Request Feature</a>
+    <a href="https://github.com/spiceydev/next-ecommerce/issues">Request Feature</a>
   </p>
 </div>
 
@@ -78,20 +75,18 @@
 
 [![Product Name Screen Shot][product-screenshot]](https://example.com)
 
-Here's a blank template to get started: To avoid retyping too much info. Do a search and replace with your text editor for the following: `github_username`, `repo_name`, `twitter_handle`, `linkedin_username`, `email`, `email_client`, `project_title`, `project_description`
-
 <p align="right">(<a href="#top">back to top</a>)</p>
 
 ### Built With
 
 - [Next.js](https://nextjs.org/)
 - [React.js](https://reactjs.org/)
-- [Vue.js](https://vuejs.org/)
-- [Angular](https://angular.io/)
-- [Svelte](https://svelte.dev/)
-- [Laravel](https://laravel.com)
-- [Bootstrap](https://getbootstrap.com)
-- [JQuery](https://jquery.com)
+- [Material UI](https://mui.com/)
+- [mongoose](https://mongoosejs.com/)
+- [axios](https://www.npmjs.com/package/axios)
+- [mongoDB Atlas](https://www.mongodb.com/cloud/atlas)
+- [cloudinary](https://cloudinary.com/)
+- [PayPal](https://www.paypal.com)
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
@@ -99,56 +94,43 @@ Here's a blank template to get started: To avoid retyping too much info. Do a se
 
 ## Getting Started
 
-This is an example of how you may give instructions on setting up your project locally.
-To get a local copy up and running follow these simple example steps.
+Clone the project and install the needed modules by:
+
+```sh
+ npm install
+```
+
+Rename .env.example to .env and fill in the following values:
+
+```sh
+MONGODB_URI
+JWT_SECRET
+PAYPAL_CLIENT_ID
+CLOUDINARY_CLOUD_NAME
+CLOUDINARY_API_KEY
+CLOUDINARY_API_SECRET
+```
+
+Use npm run dev to start a development server
 
 ### Prerequisites
 
-This is an example of how to list things you need to use the software and how to install them.
+Here is a list of the required prerequisites
 
 - npm
   ```sh
   npm install npm@latest -g
   ```
+- mongoDB atlas cluster setup, you can find info on how to do this [here](https://docs.atlas.mongodb.com/getting-started/)
+- Cloudinary application setup, you can find info on how to do this [here](https://cloudinary.com/documentation/how_to_integrate_cloudinary#create_and_tour_your_account)
 
-### Installation
-
-1. Get a free API Key at [https://example.com](https://example.com)
-2. Clone the repo
-   ```sh
-   git clone https://github.com/github_username/repo_name.git
-   ```
-3. Install NPM packages
-   ```sh
-   npm install
-   ```
-4. Enter your API in `config.js`
-   ```js
-   const API_KEY = 'ENTER YOUR API';
-   ```
-
-<p align="right">(<a href="#top">back to top</a>)</p>
-
-<!-- USAGE EXAMPLES -->
-
-## Usage
-
-Use this space to show useful examples of how a project can be used. Additional screenshots, code examples and demos work well in this space. You may also link to more resources.
-
-_For more examples, please refer to the [Documentation](https://example.com)_
-
-<p align="right">(<a href="#top">back to top</a>)</p>
+<!-- Demo -->
 
 <!-- ROADMAP -->
 
 ## Roadmap
 
-- [] Feature 1
-- [] Feature 2
-- [] Feature 3
-  - [] Nested Feature
-
-See the [open issues](https://github.com/github_username/repo_name/issues) for a full list of proposed features (and known issues).
+See the [open issues](https://github.com/spiceydev/next-ecommerce/issues) for a full list of proposed features (and known issues).
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
@@ -173,7 +155,7 @@ Don't forget to give the project a star! Thanks again!
 
 ## License
 
-Distributed under the MIT License. See `LICENSE.txt` for more information.
+Distributed under the GNU GENERAL PUBLIC License. See `LICENSE` for more information.
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
@@ -181,19 +163,9 @@ Distributed under the MIT License. See `LICENSE.txt` for more information.
 
 ## Contact
 
-Your Name - [@twitter_handle](https://twitter.com/twitter_handle) - email@email_client.com
+AdamSpice - [@SpiceyBrisket](https://twitter.com/SpiceyBrisket)
 
-Project Link: [https://github.com/github_username/repo_name](https://github.com/github_username/repo_name)
-
-<p align="right">(<a href="#top">back to top</a>)</p>
-
-<!-- ACKNOWLEDGMENTS -->
-
-## Acknowledgments
-
-- []()
-- []()
-- []()
+Project Link: [https://github.com/spiceydev/next-ecommerce](https://github.com/spiceydev/next-ecommerce)
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
@@ -209,7 +181,5 @@ Project Link: [https://github.com/github_username/repo_name](https://github.com/
 [issues-shield]: https://img.shields.io/github/issues/spiceydev/next-ecommerce.svg?style=for-the-badge
 [issues-url]: https://github.com/spiceydev/next-ecommerce/issues
 [license-shield]: https://img.shields.io/github/license/spiceydev/next-ecommerce.svg?style=for-the-badge
-[license-url]: https://github.com/spiceydev/next-ecommerce/blob/master/LICENSE.txt
-[linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
-[linkedin-url]: https://linkedin.com/in/linkedin_username
+[license-url]: https://github.com/spiceydev/next-ecommerce/blob/main/LICENSE
 [product-screenshot]: images/screenshot.png
