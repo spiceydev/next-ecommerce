@@ -27,7 +27,6 @@ import {
 } from '../../utils/actionTypes';
 import { getError } from '../../utils/error';
 import { makeCurrency } from '../../utils/makeCurrency';
-import { makeLocalDate } from '../../utils/makeLocalDate';
 import { Store } from '../../utils/Store';
 import useStyles from '../../utils/styles';
 
