@@ -33,7 +33,6 @@ export const isAuth = async (req, res, next) => {
 };
 
 export const isAdmin = async (req, res, next) => {
-  console.log(`req.user.isAdmin`, req.user.isAdmin);
   if (req.user.isAdmin) {
     next();
   } else {
