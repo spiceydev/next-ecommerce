@@ -32,6 +32,15 @@ const Menu = ({ selected }) => {
           <ListItemText primary="Products"></ListItemText>
         </ListItem>
       </NextLink>
+      <NextLink href="/admin/users" passHref>
+        <ListItem
+          selected={selected === 'users' ? true : false}
+          button
+          component="a"
+        >
+          <ListItemText primary="Users"></ListItemText>
+        </ListItem>
+      </NextLink>
     </List>
   );
 };

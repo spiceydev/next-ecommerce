@@ -31,6 +31,7 @@ import {
   UPLOAD_REQUEST,
   UPLOAD_SUCCESS,
 } from '../../../utils/actionTypes';
+import Menu from '../../../components/admin/Menu';
 
 function reducer(state, action) {
   switch (action.type) {
@@ -169,23 +170,7 @@ function ProductEdit({ params }) {
       <Grid container spacing={1}>
         <Grid item md={3} xs={12}>
           <Card className={classes.section}>
-            <List>
-              <NextLink href="/admin/dashboard" passHref>
-                <ListItem button component="a">
-                  <ListItemText primary="Admin Dashboard"></ListItemText>
-                </ListItem>
-              </NextLink>
-              <NextLink href="/admin/orders" passHref>
-                <ListItem button component="a">
-                  <ListItemText primary="Orders"></ListItemText>
-                </ListItem>
-              </NextLink>
-              <NextLink href="/admin/products" passHref>
-                <ListItem selected button component="a">
-                  <ListItemText primary="Products"></ListItemText>
-                </ListItem>
-              </NextLink>
-            </List>
+            <Menu selected="products" />
           </Card>
         </Grid>
         <Grid item md={9} xs={12}>
