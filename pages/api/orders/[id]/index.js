@@ -1,7 +1,7 @@
 import nc from 'next-connect';
 import Order from '../../../../models/Order';
-import db from '../../../../utils/db';
 import { isAuth } from '../../../../utils/auth';
+import db from '../../../../utils/db';
 
 const handler = nc();
 handler.use(isAuth);

@@ -1,12 +1,12 @@
 import {
+  Button,
   FormControl,
+  FormControlLabel,
   List,
   ListItem,
-  Typography,
-  RadioGroup,
-  FormControlLabel,
   Radio,
-  Button,
+  RadioGroup,
+  Typography,
 } from '@material-ui/core';
 import Cookies from 'js-cookie';
 import { useRouter } from 'next/router';

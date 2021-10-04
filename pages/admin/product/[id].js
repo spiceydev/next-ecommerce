@@ -1,25 +1,21 @@
-import axios from 'axios';
-import dynamic from 'next/dynamic';
-import { useRouter } from 'next/router';
-import NextLink from 'next/link';
-import React, { useEffect, useContext, useReducer } from 'react';
 import {
+  Button,
+  Card,
+  CircularProgress,
   Grid,
   List,
   ListItem,
-  Typography,
-  Card,
-  Button,
-  ListItemText,
   TextField,
-  CircularProgress,
+  Typography,
 } from '@material-ui/core';
-import { getError } from '../../../utils/error';
-import { Store } from '../../../utils/Store';
-import Layout from '../../../components/Layout';
-import useStyles from '../../../utils/styles';
-import { Controller, useForm } from 'react-hook-form';
+import axios from 'axios';
+import dynamic from 'next/dynamic';
+import { useRouter } from 'next/router';
 import { useSnackbar } from 'notistack';
+import React, { useContext, useEffect, useReducer } from 'react';
+import { Controller, useForm } from 'react-hook-form';
+import Menu from '../../../components/admin/Menu';
+import Layout from '../../../components/Layout';
 import {
   FETCH_FAIL,
   FETCH_REQUEST,
@@ -31,7 +27,9 @@ import {
   UPLOAD_REQUEST,
   UPLOAD_SUCCESS,
 } from '../../../utils/actionTypes';
-import Menu from '../../../components/admin/Menu';
+import { getError } from '../../../utils/error';
+import { Store } from '../../../utils/Store';
+import useStyles from '../../../utils/styles';
 
 function reducer(state, action) {
   switch (action.type) {

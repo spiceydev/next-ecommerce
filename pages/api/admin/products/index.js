@@ -1,6 +1,6 @@
 import nc from 'next-connect';
-import { isAdmin, isAuth } from '../../../../utils/auth';
 import Product from '../../../../models/Product';
+import { isAdmin, isAuth } from '../../../../utils/auth';
 import db from '../../../../utils/db';
 
 const handler = nc();

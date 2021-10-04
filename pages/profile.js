@@ -1,25 +1,25 @@
-import axios from 'axios';
-import dynamic from 'next/dynamic';
-import { useRouter } from 'next/router';
-import NextLink from 'next/link';
-import React, { useEffect, useContext } from 'react';
 import {
+  Button,
+  Card,
   Grid,
   List,
   ListItem,
-  Typography,
-  Card,
-  Button,
   ListItemText,
   TextField,
+  Typography,
 } from '@material-ui/core';
+import axios from 'axios';
+import Cookies from 'js-cookie';
+import dynamic from 'next/dynamic';
+import NextLink from 'next/link';
+import { useRouter } from 'next/router';
+import { useSnackbar } from 'notistack';
+import React, { useContext, useEffect } from 'react';
+import { Controller, useForm } from 'react-hook-form';
+import Layout from '../components/Layout';
 import { getError } from '../utils/error';
 import { Store } from '../utils/Store';
-import Layout from '../components/Layout';
 import useStyles from '../utils/styles';
-import { Controller, useForm } from 'react-hook-form';
-import { useSnackbar } from 'notistack';
-import Cookies from 'js-cookie';
 
 function Profile() {
   const { state, dispatch } = useContext(Store);

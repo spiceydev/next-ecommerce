@@ -1,31 +1,31 @@
-import axios from 'axios';
-import dynamic from 'next/dynamic';
-import { useRouter } from 'next/router';
-import NextLink from 'next/link';
-import React, { useEffect, useContext, useReducer } from 'react';
 import {
+  Button,
+  Card,
   CircularProgress,
   Grid,
   List,
   ListItem,
-  TableContainer,
-  Typography,
-  Card,
+  ListItemText,
   Table,
+  TableBody,
+  TableCell,
+  TableContainer,
   TableHead,
   TableRow,
-  TableCell,
-  TableBody,
-  Button,
-  ListItemText,
+  Typography,
 } from '@material-ui/core';
-import { getError } from '../utils/error';
-import { Store } from '../utils/Store';
+import axios from 'axios';
+import dynamic from 'next/dynamic';
+import NextLink from 'next/link';
+import { useRouter } from 'next/router';
+import React, { useContext, useEffect, useReducer } from 'react';
 import Layout from '../components/Layout';
-import useStyles from '../utils/styles';
 import { FETCH_FAIL, FETCH_REQUEST, FETCH_SUCCESS } from '../utils/actionTypes';
+import { getError } from '../utils/error';
 import { makeCurrency } from '../utils/makeCurrency';
 import { makeLocalDate } from '../utils/makeLocalDate';
+import { Store } from '../utils/Store';
+import useStyles from '../utils/styles';
 
 const reducer = (state, action) => {
   switch (action.type) {

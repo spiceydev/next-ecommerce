@@ -1,27 +1,23 @@
-import axios from 'axios';
-import dynamic from 'next/dynamic';
-import { useRouter } from 'next/router';
-import NextLink from 'next/link';
-import React, { useEffect, useContext, useReducer, useState } from 'react';
 import {
+  Button,
+  Card,
+  Checkbox,
+  CircularProgress,
+  FormControlLabel,
   Grid,
   List,
   ListItem,
-  Typography,
-  Card,
-  Button,
-  ListItemText,
   TextField,
-  CircularProgress,
-  Checkbox,
-  FormControlLabel,
+  Typography,
 } from '@material-ui/core';
-import { getError } from '../../../utils/error';
-import { Store } from '../../../utils/Store';
-import Layout from '../../../components/Layout';
-import useStyles from '../../../utils/styles';
-import { Controller, useForm } from 'react-hook-form';
+import axios from 'axios';
+import dynamic from 'next/dynamic';
+import { useRouter } from 'next/router';
 import { useSnackbar } from 'notistack';
+import React, { useContext, useEffect, useReducer, useState } from 'react';
+import { Controller, useForm } from 'react-hook-form';
+import Menu from '../../../components/admin/Menu';
+import Layout from '../../../components/Layout';
 import {
   FETCH_FAIL,
   FETCH_REQUEST,
@@ -33,6 +29,9 @@ import {
   UPLOAD_REQUEST,
   UPLOAD_SUCCESS,
 } from '../../../utils/actionTypes';
+import { getError } from '../../../utils/error';
+import { Store } from '../../../utils/Store';
+import useStyles from '../../../utils/styles';
 
 function reducer(state, action) {
   switch (action.type) {
@@ -102,6 +101,7 @@ function UserEdit({ params }) {
       };
       fetchData();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const submitHandler = async ({ name }) => {
@@ -129,28 +129,7 @@ function UserEdit({ params }) {
       <Grid container spacing={1}>
         <Grid item md={3} xs={12}>
           <Card className={classes.section}>
-            <List>
-              <NextLink href="/admin/dashboard" passHref>
-                <ListItem button component="a">
-                  <ListItemText primary="Admin Dashboard"></ListItemText>
-                </ListItem>
-              </NextLink>
-              <NextLink href="/admin/orders" passHref>
-                <ListItem button component="a">
-                  <ListItemText primary="Orders"></ListItemText>
-                </ListItem>
-              </NextLink>
-              <NextLink href="/admin/products" passHref>
-                <ListItem button component="a">
-                  <ListItemText primary="Products"></ListItemText>
-                </ListItem>
-              </NextLink>
-              <NextLink href="/admin/users" passHref>
-                <ListItem selected button component="a">
-                  <ListItemText primary="Users"></ListItemText>
-                </ListItem>
-              </NextLink>
-            </List>
+            <Menu selected="users" />
           </Card>
         </Grid>
         <Grid item md={9} xs={12}>
