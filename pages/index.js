@@ -1,23 +1,12 @@
-import {
-  Button,
-  Card,
-  CardActionArea,
-  CardActions,
-  CardContent,
-  CardMedia,
-  Grid,
-  Typography,
-} from '@material-ui/core';
-import Rating from '@material-ui/lab/Rating';
+import { Grid } from '@material-ui/core';
 import axios from 'axios';
-import NextLink from 'next/link';
 import { useRouter } from 'next/router';
 import { useContext } from 'react';
 import Layout from '../components/Layout';
+import ProductItem from '../components/ProductItem';
 import Product from '../models/Product';
 import { CART_ADD_ITEM } from '../utils/actionTypes';
 import db from '../utils/db';
-import { makeCurrency } from '../utils/makeCurrency';
 import { Store } from '../utils/Store';
 
 const Home = ({ products }) => {
@@ -43,31 +32,10 @@ const Home = ({ products }) => {
         <Grid container spacing={3}>
           {products.map((product) => (
             <Grid item md={4} key={product.name}>
-              <Card>
-                <NextLink href={`/product/${product.slug}`} passHref>
-                  <CardActionArea>
-                    <CardMedia
-                      component="img"
-                      image={product.image}
-                      title={product.name}
-                    />
-                    <CardContent>
-                      <Typography>{product.name}</Typography>
-                      <Rating value={product.rating} readOnly></Rating>
-                    </CardContent>
-                  </CardActionArea>
-                </NextLink>
-                <CardActions>
-                  <Typography>{makeCurrency(product.price)}</Typography>
-                  <Button
-                    size="small"
-                    color="primary"
-                    onClick={() => addToCartHandler(product)}
-                  >
-                    Add To Cart
-                  </Button>
-                </CardActions>
-              </Card>
+              <ProductItem
+                product={product}
+                addToCartHandler={addToCartHandler}
+              />
             </Grid>
           ))}
         </Grid>
