@@ -63,7 +63,9 @@ function AdminDashboard() {
       }
     };
     fetchData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
   return (
     <Layout title="Admin Dashboard">
       <Grid container spacing={1}>
@@ -170,27 +172,31 @@ function AdminDashboard() {
                 </Typography>
               </ListItem>
               <ListItem>
-                <Bar
-                  data={{
-                    labels: summary.salesData.map((x) => x._id),
-                    datasets: [
-                      {
-                        label: 'Sales',
-                        backgroundColor: 'rgba(162, 222, 208, 1)',
-                        data: summary.salesData.map((x) => x.totalSales),
+                {summary.correctSalesData?.length > 0 && (
+                  <Bar
+                    data={{
+                      labels: summary.correctSalesData.map((x) => x._id),
+                      datasets: [
+                        {
+                          label: 'Sales',
+                          backgroundColor: 'rgba(162, 222, 208, 1)',
+                          data: summary.correctSalesData.map(
+                            (x) => x.totalSales
+                          ),
+                        },
+                      ],
+                    }}
+                    options={{
+                      legend: {
+                        display: true,
+                        position: 'right',
+                        labels: {
+                          fontColor: darkMode ? 'white' : '#606060',
+                        },
                       },
-                    ],
-                  }}
-                  options={{
-                    legend: {
-                      display: true,
-                      position: 'right',
-                      labels: {
-                        fontColor: darkMode ? 'white' : '#606060',
-                      },
-                    },
-                  }}
-                ></Bar>
+                    }}
+                  ></Bar>
+                )}
               </ListItem>
             </List>
           </Card>

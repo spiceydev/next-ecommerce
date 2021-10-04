@@ -1,3 +1,4 @@
+import { format } from 'date-fns';
 import nc from 'next-connect';
 import Order from '../../../models/Order';
 import Product from '../../../models/Product';
@@ -17,6 +18,7 @@ handler.get(async (req, res) => {
   const productsCount = await Product.countDocuments();
   const usersCount = await User.countDocuments();
   const ordersPriceGroup = await Order.aggregate([
+    { $match: { isPaid: true } },
     {
       $group: {
         _id: null,
@@ -26,16 +28,32 @@ handler.get(async (req, res) => {
   ]);
   const ordersPrice =
     ordersPriceGroup.length > 0 ? ordersPriceGroup[0].sales : 0;
-  const salesData = await Order.aggregate([
-    {
-      $group: {
-        _id: { $dateToString: { format: '%Y-%m', date: '$createdAt' } },
-        totalSales: { $sum: '$totalPrice' },
-      },
-    },
-  ]);
+
+  const orders = await Order.find({});
+  const correctSalesData = [];
+  orders.forEach((order) => {
+    if (order.isPaid) {
+      const orderDate = format(order.createdAt, 'MM-yyyy');
+      const existOrder = correctSalesData.find((o) => o._id === orderDate);
+      if (!existOrder) {
+        correctSalesData.push({
+          _id: orderDate,
+          totalSales: order.totalPrice,
+        });
+      } else {
+        existOrder.totalSales += order.totalPrice;
+      }
+    }
+  });
+
   await db.disconnect();
-  res.send({ ordersCount, productsCount, usersCount, ordersPrice, salesData });
+  res.send({
+    ordersCount,
+    productsCount,
+    usersCount,
+    ordersPrice,
+    correctSalesData,
+  });
 });
 
 export default handler;
