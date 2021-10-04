@@ -1,43 +1,42 @@
-import axios from 'axios';
-import dynamic from 'next/dynamic';
-import { useRouter } from 'next/router';
-import NextLink from 'next/link';
-import React, { useEffect, useContext, useReducer } from 'react';
 import {
+  Button,
+  Card,
   CircularProgress,
   Grid,
   List,
   ListItem,
-  Typography,
-  Card,
-  Button,
-  ListItemText,
-  TableContainer,
   Table,
+  TableBody,
+  TableCell,
+  TableContainer,
   TableHead,
   TableRow,
-  TableCell,
-  TableBody,
+  Typography,
 } from '@material-ui/core';
-import { getError } from '../../utils/error';
-import { Store } from '../../utils/Store';
+import axios from 'axios';
+import dynamic from 'next/dynamic';
+import NextLink from 'next/link';
+import { useRouter } from 'next/router';
+import React, { useContext, useEffect, useReducer } from 'react';
+import Menu from '../../components/admin/Menu';
 import Layout from '../../components/Layout';
-import useStyles from '../../utils/styles';
-import { makeCurrency } from '../../utils/makeCurrency';
-import { makeLocalDate } from '../../utils/makeLocalDate';
 import {
   FETCH_FAIL,
   FETCH_REQUEST,
   FETCH_SUCCESS,
 } from '../../utils/actionTypes';
-import Menu from '../../components/admin/Menu';
+import { getError } from '../../utils/error';
+import { makeCurrency } from '../../utils/makeCurrency';
+import { makeLocalDate } from '../../utils/makeLocalDate';
+import { Store } from '../../utils/Store';
+import useStyles from '../../utils/styles';
 
 function reducer(state, action) {
   switch (action.type) {
     case FETCH_REQUEST:
       return { ...state, loading: true, error: '' };
     case FETCH_SUCCESS:
-      return { ...state, loading: false, orders: action.payload, error: '' };
+      return { ...state, loading: false, products: action.payload, error: '' };
     case FETCH_FAIL:
       return { ...state, loading: false, error: action.payload };
     default:
@@ -51,9 +50,9 @@ function AdminDashboard() {
   const classes = useStyles();
   const { userInfo } = state;
 
-  const [{ loading, error, orders }, dispatch] = useReducer(reducer, {
+  const [{ loading, error, products }, dispatch] = useReducer(reducer, {
     loading: true,
-    orders: [],
+    products: [],
     error: '',
   });
 
@@ -64,7 +63,7 @@ function AdminDashboard() {
     const fetchData = async () => {
       try {
         dispatch({ type: FETCH_REQUEST });
-        const { data } = await axios.get(`/api/admin/orders`, {
+        const { data } = await axios.get(`/api/admin/products`, {
           headers: { authorization: `Bearer ${userInfo.token}` },
         });
         dispatch({ type: FETCH_SUCCESS, payload: data });
@@ -76,11 +75,11 @@ function AdminDashboard() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   return (
-    <Layout title="Orders">
+    <Layout title="Products">
       <Grid container spacing={1}>
         <Grid item md={3} xs={12}>
           <Card className={classes.section}>
-            <Menu selected="orders" />
+            <Menu selected="products" />
           </Card>
         </Grid>
         <Grid item md={9} xs={12}>
@@ -88,7 +87,7 @@ function AdminDashboard() {
             <List>
               <ListItem>
                 <Typography component="h1" variant="h1">
-                  Orders
+                  Products
                 </Typography>
               </ListItem>
 
@@ -103,43 +102,41 @@ function AdminDashboard() {
                       <TableHead>
                         <TableRow>
                           <TableCell>ID</TableCell>
-                          <TableCell>USER</TableCell>
-                          <TableCell>DATE</TableCell>
-                          <TableCell>TOTAL</TableCell>
-                          <TableCell>PAID</TableCell>
-                          <TableCell>DELIVERED</TableCell>
-                          <TableCell>ACTION</TableCell>
+                          <TableCell>NAME</TableCell>
+                          <TableCell>PRICE</TableCell>
+                          <TableCell>CATEGORY</TableCell>
+                          <TableCell>COUNT</TableCell>
+                          <TableCell>RATING</TableCell>
+                          <TableCell>ACTIONS</TableCell>
                         </TableRow>
                       </TableHead>
                       <TableBody>
-                        {orders.map((order) => (
-                          <TableRow key={order._id}>
-                            <TableCell>{order._id.substring(20, 24)}</TableCell>
+                        {products.map((product) => (
+                          <TableRow key={product._id}>
                             <TableCell>
-                              {order.user ? order.user.name : 'DELETED USER'}
+                              {product._id.substring(20, 24)}
                             </TableCell>
+                            <TableCell>{product.name}</TableCell>
+                            <TableCell>{makeCurrency(product.price)}</TableCell>
+                            <TableCell>{product.category}</TableCell>
+                            <TableCell>{product.countInStock}</TableCell>
+                            <TableCell>{product.rating}</TableCell>
                             <TableCell>
-                              {makeLocalDate(order.createdAt)}
-                            </TableCell>
-                            <TableCell>
-                              {makeCurrency(order.totalPrice)}
-                            </TableCell>
-                            <TableCell>
-                              {order.isPaid
-                                ? `Paid on ${makeLocalDate(order.paidAt)}`
-                                : 'Not yet paid'}
-                            </TableCell>
-                            <TableCell>
-                              {order.isDelivered
-                                ? `Delivered on ${makeLocalDate(
-                                    order.deliveredAt
-                                  )}`
-                                : 'Not delivered'}
-                            </TableCell>
-                            <TableCell>
-                              <NextLink href={`/order/${order._id}`} passHref>
-                                <Button variant="contained">Details</Button>
-                              </NextLink>
+                              <NextLink
+                                href={`/admin/product/${product._id}`}
+                                passHref
+                              >
+                                <Button
+                                  size="small"
+                                  color="primary"
+                                  variant="contained"
+                                >
+                                  Edit
+                                </Button>
+                              </NextLink>{' '}
+                              <Button size="small" variant="contained">
+                                Delete
+                              </Button>
                             </TableCell>
                           </TableRow>
                         ))}

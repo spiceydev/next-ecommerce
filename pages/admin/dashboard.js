@@ -1,26 +1,26 @@
-import axios from 'axios';
-import dynamic from 'next/dynamic';
-import { useRouter } from 'next/router';
-import NextLink from 'next/link';
-import React, { useEffect, useContext, useReducer } from 'react';
 import {
+  Button,
+  Card,
+  CardActions,
+  CardContent,
   CircularProgress,
   Grid,
   List,
   ListItem,
   Typography,
-  Card,
-  Button,
-  ListItemText,
-  CardContent,
-  CardActions,
 } from '@material-ui/core';
+import axios from 'axios';
+import dynamic from 'next/dynamic';
+import NextLink from 'next/link';
+import { useRouter } from 'next/router';
+import React, { useContext, useEffect, useReducer } from 'react';
 import { Bar } from 'react-chartjs-2';
-import { getError } from '../../utils/error';
-import { Store } from '../../utils/Store';
+import Menu from '../../components/admin/Menu';
 import Layout from '../../components/Layout';
-import useStyles from '../../utils/styles';
+import { getError } from '../../utils/error';
 import { makeCurrency } from '../../utils/makeCurrency';
+import { Store } from '../../utils/Store';
+import useStyles from '../../utils/styles';
 
 function reducer(state, action) {
   switch (action.type) {
@@ -71,18 +71,7 @@ function AdminDashboard() {
       <Grid container spacing={1}>
         <Grid item md={3} xs={12}>
           <Card className={classes.section}>
-            <List>
-              <NextLink href="/admin/dashboard" passHref>
-                <ListItem selected button component="a">
-                  <ListItemText primary="Admin Dashboard"></ListItemText>
-                </ListItem>
-              </NextLink>
-              <NextLink href="/admin/orders" passHref>
-                <ListItem button component="a">
-                  <ListItemText primary="Orders"></ListItemText>
-                </ListItem>
-              </NextLink>
-            </List>
+            <Menu selected="dashboard" />
           </Card>
         </Grid>
         <Grid item md={9} xs={12}>
