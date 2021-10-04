@@ -1,41 +1,41 @@
 import {
   AppBar,
   Badge,
+  Box,
   Button,
   Container,
   createTheme,
   CssBaseline,
+  Divider,
+  Drawer,
+  FormControlLabel,
+  IconButton,
+  InputBase,
   Link,
+  List,
+  ListItem,
+  ListItemText,
   Menu,
   MenuItem,
   Switch,
   ThemeProvider,
   Toolbar,
   Typography,
-  Box,
-  IconButton,
-  Drawer,
-  List,
-  ListItem,
-  Divider,
-  ListItemText,
-  InputBase,
 } from '@material-ui/core';
-import MenuIcon from '@material-ui/icons/Menu';
 import CancelIcon from '@material-ui/icons/Cancel';
+import MenuIcon from '@material-ui/icons/Menu';
 import SearchIcon from '@material-ui/icons/Search';
+import axios from 'axios';
 import Cookies from 'js-cookie';
 import Head from 'next/head';
 import NextLink from 'next/link';
 import { useRouter } from 'next/router';
-import React, { useContext, useState } from 'react';
+import { useSnackbar } from 'notistack';
+import React, { useContext, useEffect, useState } from 'react';
 import { DARK_MODE_OFF, DARK_MODE_ON, USER_LOGOUT } from '../utils/actionTypes';
+import { getError } from '../utils/error';
 import { Store } from '../utils/Store';
 import useStyles from '../utils/styles';
-import { useSnackbar } from 'notistack';
-import axios from 'axios';
-import { useEffect } from 'react';
-import { getError } from '../utils/error';
 
 const Layout = ({ title, children, description }) => {
   const router = useRouter();
@@ -209,10 +209,14 @@ const Layout = ({ title, children, description }) => {
               </form>
             </div>
             <div>
-              <Switch
-                checked={darkMode}
-                onChange={darkModeChangeHandler}
-              ></Switch>
+              <FormControlLabel
+                control={
+                  <Switch checked={darkMode} onChange={darkModeChangeHandler} />
+                }
+                label="Dark Mode"
+                style={{ color: 'white' }}
+              />
+
               <NextLink href="/cart" passHref>
                 <Link>
                   <Typography component="span">
@@ -237,7 +241,7 @@ const Layout = ({ title, children, description }) => {
                     onClick={loginClickHandler}
                     className={classes.navbarButton}
                   >
-                    {userInfo.name}
+                    <Typography>{userInfo.name}</Typography>
                   </Button>
                   <Menu
                     id="simple-menu"

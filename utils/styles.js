@@ -34,6 +34,7 @@ const useStyles = makeStyles((theme) => ({
   navbarButton: {
     color: '#ffffff',
     textTransform: 'initial',
+    marginLeft: 15,
   },
   transparentBackground: {
     backgroundColor: 'transparent',
