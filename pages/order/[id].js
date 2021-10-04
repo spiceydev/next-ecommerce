@@ -32,6 +32,8 @@ import {
   PAY_SUCCESS,
 } from '../../utils/actionTypes';
 import { getError } from '../../utils/error';
+import { makeCurrency } from '../../utils/makeCurrency';
+import { makeLocalDate } from '../../utils/makeLocalDate';
 import { Store } from '../../utils/Store';
 import useStyles from '../../utils/styles';
 
@@ -184,15 +186,37 @@ const Order = ({ params }) => {
                   </Typography>
                 </ListItem>
                 <ListItem>
-                  {shippingAddress.fullName}, {shippingAddress.address},{' '}
-                  {shippingAddress.city}, {shippingAddress.postalCode},{' '}
-                  {shippingAddress.country}
+                  <Typography>
+                    <strong>Name:</strong> {shippingAddress.fullName}
+                  </Typography>
                 </ListItem>
                 <ListItem>
-                  Status:{' '}
-                  {isDelivered
-                    ? `delivered at ${deliveredAt}`
-                    : 'not delivered'}
+                  <Typography>
+                    <strong>Address line 1:</strong> {shippingAddress.address}
+                  </Typography>
+                </ListItem>
+                <ListItem>
+                  <Typography>
+                    <strong>City:</strong> {shippingAddress.city}
+                  </Typography>
+                </ListItem>
+                <ListItem>
+                  <Typography>
+                    <strong>Post Code:</strong> {shippingAddress.postCode}
+                  </Typography>
+                </ListItem>
+                <ListItem>
+                  <Typography>
+                    <strong>Country:</strong> {shippingAddress.country}
+                  </Typography>
+                </ListItem>
+                <ListItem>
+                  <Typography>
+                    <strong>Status:</strong>{' '}
+                    {isDelivered
+                      ? `Delivered on ${makeLocalDate(deliveredAt)}`
+                      : 'Not yet delivered'}
+                  </Typography>
                 </ListItem>
               </List>
             </Card>
@@ -203,9 +227,14 @@ const Order = ({ params }) => {
                     Payment Method
                   </Typography>
                 </ListItem>
-                <ListItem>{paymentMethod}</ListItem>
                 <ListItem>
-                  Status: {isPaid ? `paid at ${paidAt}` : 'not paid'}
+                  <Typography>{paymentMethod}</Typography>
+                </ListItem>
+                <ListItem>
+                  <Typography>
+                    <strong>Status:</strong>{' '}
+                    {isPaid ? `Paid on ${makeLocalDate(paidAt)}` : 'Not paid'}
+                  </Typography>
                 </ListItem>
               </List>
             </Card>
@@ -254,7 +283,9 @@ const Order = ({ params }) => {
                               <Typography>{item.quantity}</Typography>
                             </TableCell>
                             <TableCell align="right">
-                              <Typography>${item.price}</Typography>
+                              <Typography>
+                                {makeCurrency(item.price)}
+                              </Typography>
                             </TableCell>
                           </TableRow>
                         ))}
@@ -277,7 +308,9 @@ const Order = ({ params }) => {
                       <Typography>Items:</Typography>
                     </Grid>
                     <Grid item xs={6}>
-                      <Typography align="right">${itemsPrice}</Typography>
+                      <Typography align="right">
+                        {makeCurrency(itemsPrice)}
+                      </Typography>
                     </Grid>
                   </Grid>
                 </ListItem>
@@ -287,7 +320,9 @@ const Order = ({ params }) => {
                       <Typography>Tax:</Typography>
                     </Grid>
                     <Grid item xs={6}>
-                      <Typography align="right">${taxPrice}</Typography>
+                      <Typography align="right">
+                        {makeCurrency(taxPrice)}
+                      </Typography>
                     </Grid>
                   </Grid>
                 </ListItem>
@@ -297,7 +332,9 @@ const Order = ({ params }) => {
                       <Typography>Shipping:</Typography>
                     </Grid>
                     <Grid item xs={6}>
-                      <Typography align="right">${shippingPrice}</Typography>
+                      <Typography align="right">
+                        {makeCurrency(shippingPrice)}
+                      </Typography>
                     </Grid>
                   </Grid>
                 </ListItem>
@@ -310,7 +347,7 @@ const Order = ({ params }) => {
                     </Grid>
                     <Grid item xs={6}>
                       <Typography align="right">
-                        <strong>${totalPrice}</strong>
+                        <strong>{makeCurrency(totalPrice)}</strong>
                       </Typography>
                     </Grid>
                   </Grid>
